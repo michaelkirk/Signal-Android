@@ -55,6 +55,7 @@ import org.whispersystems.libsignal.InvalidMessageException;
 import org.whispersystems.libsignal.InvalidVersionException;
 import org.whispersystems.libsignal.LegacyMessageException;
 import org.whispersystems.libsignal.NoSessionException;
+import org.whispersystems.libsignal.SignalProtocolAddress;
 import org.whispersystems.libsignal.UntrustedIdentityException;
 import org.whispersystems.libsignal.protocol.PreKeySignalMessage;
 import org.whispersystems.libsignal.state.SessionStore;
@@ -296,7 +297,7 @@ public class PushDecryptJob extends ContextJob {
 
     if (threadId != null) {
       SessionStore sessionStore = new TextSecureSessionStore(context);
-      sessionStore.deleteAllSessions(envelope.getSource());
+      sessionStore.deleteSession(new SignalProtocolAddress(envelope.getSource(), envelope.getSourceDevice());
 
       SecurityEvent.broadcastSecurityUpdateEvent(context);
       MessageNotifier.updateNotification(context, masterSecret.getMasterSecret().orNull(), threadId);
